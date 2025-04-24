@@ -1,0 +1,38 @@
+<div class="row navbar">
+  <div class="col-12">
+    <kendo-buttongroup>
+      <button kendoButton class="nav-btn">
+        <i class="fas fa-tachometer-alt"></i> DASHBOARD
+      </button>
+      <button kendoButton class="nav-btn">
+        <i class="fas fa-user-tie"></i> AGENT MANAGEMENT <span>▼</span>
+      </button>
+      <button kendoButton class="nav-btn" (click)="toggleCalendarDropdown()">
+        <i class="fas fa-calendar-alt"></i> CALENDAR
+      </button>
+      <button kendoButton class="nav-btn">
+        <i class="fas fa-comment-dots"></i> EZ QUOTE
+      </button>
+      <button kendoButton class="nav-btn active">
+        <i class="fas fa-project-diagram"></i> LEAD MANAGEMENT
+      </button>
+      <button kendoButton class="nav-btn">
+        <i class="fas fa-tasks"></i> ACTIVITIES
+      </button>
+      <button kendoButton class="nav-btn">
+        <i class="fas fa-recycle"></i> WORKFLOWS
+      </button>
+      <button kendoButton class="nav-btn">
+        <i class="fas fa-comments"></i> CHAT <span class="badge">1</span>
+      </button>
+    </kendo-buttongroup>
+  </div>
+</div>
+
+      
+<!-- Dropdown-style Calendar -->
+    <div class="calendar-dropdown" *ngIf="isCalendarOpen">
+        <kendo-calendar [(value)]="selectedDate"></kendo-calendar>
+    </div>
+
+  

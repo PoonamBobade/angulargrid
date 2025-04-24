@@ -1,0 +1,74 @@
+.navbar {
+    border-bottom: 6px solid yellowgreen;
+   
+  }
+  
+  kendo-buttongroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 10px 0;
+  }
+  
+  .nav-btn {
+    background-color: #002b80;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 40px;
+    flex: 1 1 130px;
+    min-width: 130px;
+    max-width: 180px;
+    justify-content: center;
+    cursor: pointer;
+    white-space: nowrap;
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  
+  .nav-btn.active {
+    background-color: #7dbb42 !important;
+    color: white;
+  }
+    .nav-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background-color: #8dc63f;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+  }
+
+  .badge {
+    background-color: #00c853;
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 50%;
+    margin-left: 5px;
+  }
+  
+
+  .calendar-dropdown {
+    position: absolute;
+    top: 50px; /* Adjust as needed */
+    left: 400px; /* Adjust position to match the calendar button */
+    z-index: 1000;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    padding: 10px;
+  }
