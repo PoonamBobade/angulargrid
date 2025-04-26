@@ -61,6 +61,11 @@ export class GridComponent implements OnInit {
     });
   }
 
+  editHandler({ sender, rowIndex, dataItem }: any): void {
+    this.editedItem = { ...dataItem };
+    sender.editRow(rowIndex);
+  }
+
   saveHandler({ sender, rowIndex, dataItem }: any): void {
     sender.closeRow(rowIndex);
 
@@ -81,15 +86,34 @@ export class GridComponent implements OnInit {
     });
   }
 
-  editHandler({ sender, rowIndex, dataItem }: any): void {
-    this.editedItem = { ...dataItem };
-    sender.editRow(rowIndex);
-  }
-
-  cancelHandler(): void {
+  cancelHandler({ sender, rowIndex }: any): void {
     this.editedItem = undefined;
+    sender.cancelRow(rowIndex);  // Ensures that the row is no longer in edit mode.
   }
 
+
+  addHandler(): void {
+    const newItem = {
+      id: 0, 
+      first_name: '',
+      last_name: '',
+      primary_email_address: '',
+      primary_phone_type: '',
+      lmp_lead_id: '',
+      appointment_type: '',
+      booking_agency: ''
+    };
+  
+    this.gridData.unshift(newItem);
+    this.gridView = [...this.gridData];
+  
+    setTimeout(() => {
+      this.editedItem = newItem;
+      const rowIndex = this.gridData.indexOf(newItem);
+      this.grid.editRow(rowIndex);
+    });
+  }
+  
   onFilter(value: string): void {
     const inputValue = value.toLowerCase();
 

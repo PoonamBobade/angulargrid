@@ -76,6 +76,11 @@
                 <span class="menu-icon">☰</span>
             </button>
         </div>
+        <div>
+            <button kendoButton icon="plus" (click)="addHandler()">
+                Add New
+              </button>
+        </div>
 
     </ng-template>
 
@@ -89,20 +94,23 @@
         
         <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
             <button kendoButton icon="edit"
-            (click)="editHandler({ sender: gridRef, rowIndex: rowIndex, dataItem: dataItem })"
-                *ngIf="editedItem?.id !== dataItem.id">
-                Edit
-            </button>
+        (click)="editHandler({ sender: gridRef, rowIndex: rowIndex, dataItem: dataItem })"
+        *ngIf="editedItem?.id !== dataItem.id">
+  Edit
+</button>
 
-            <button kendoButton icon="save" 
-           (click)="saveHandler({ sender: gridRef, rowIndex: rowIndex, dataItem: dataItem })"
-                *ngIf="editedItem?.id === dataItem.id">
-                Save
-            </button>
+<button kendoButton icon="save" 
+        (click)="saveHandler({ sender: gridRef, rowIndex: rowIndex, dataItem: dataItem })"
+        *ngIf="editedItem?.id === dataItem.id">
+  Save
+</button>
 
-            <button kendoButton icon="cancel" (click)="cancelHandler()" *ngIf="editedItem?.id === dataItem.id">
-                Cancel
-            </button>
+<button kendoButton icon="cancel" 
+        (click)="cancelHandler({ sender: gridRef, rowIndex: rowIndex })"
+        *ngIf="editedItem?.id === dataItem.id">
+  Cancel
+</button>
+
 
             <button kendoButton icon="delete" (click)="removeHandler(dataItem)" *ngIf="editedItem?.id !== dataItem.id">
                 Delete
