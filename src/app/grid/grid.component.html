@@ -79,7 +79,7 @@
 
     </ng-template>
 
-    <kendo-grid-checkbox-column [width]="45" [headerClass]="{ 'text-center': true }" [class]="{ 'text-center': true }"
+    <kendo-grid-checkbox-column [width]="45" [headerClass]="{ 'text-center': true }" [class]="{ 'text-center': true }" 
         [resizable]="false" [columnMenu]="false" [showSelectAll]="true"></kendo-grid-checkbox-column>
     <!-- <kendo-grid-column-group title="Employee" [columnMenu]="false"> -->
         
@@ -111,7 +111,6 @@
     </kendo-grid-column>
 
         
-    
     <kendo-grid-column field="record_id" title="Record Id" [width]="220"
         [headerStyle]="{ 'background-color': '#00205b', 'color': 'white', 'text-align': 'center', 'font-weight': 'bold' }">
         <ng-template kendoGridCellTemplate let-dataItem>
@@ -212,8 +211,7 @@
     </kendo-grid-column>
     <!-- </kendo-grid-column-group> -->
 
-    <!-- <kendo-grid-pdf fileName="Employees.pdf" [repeatHeaders]="true"></kendo-grid-pdf>
-    <kendo-grid-excel fileName="Employees.xlsx"></kendo-grid-excel> -->
+    <kendo-grid-pdf fileName="Employees.pdf" [repeatHeaders]="true"></kendo-grid-pdf>
+    <kendo-grid-excel fileName="Employees.xlsx"></kendo-grid-excel>
 </kendo-grid>
 </div>
-

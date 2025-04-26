@@ -92,8 +92,8 @@ export class GridComponent implements OnInit {
 
   onFilter(value: string): void {
     const inputValue = value.toLowerCase();
-  
-    const result = process(this.gridData, {
+
+    this.gridView = process(this.gridData, {
       filter: {
         logic: "or",
         filters: [
@@ -104,12 +104,10 @@ export class GridComponent implements OnInit {
           { field: "address", operator: "contains", value: inputValue }
         ]
       }
-    });
-  
-    this.gridView = result.data; // ✅ Make sure this is an array!
+    }).data;
+
     this.dataBinding.skip = 0;
   }
-  
 
   exportExcel(grid: any): void {
     grid.saveAsExcel();
