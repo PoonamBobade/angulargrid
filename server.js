@@ -1,32 +1,58 @@
-const express = require('express');
+const jsonServer = require('json-server');
 const fs = require('fs');
 const path = require('path');
 
-const app = express();
-const port = 3000;
-const dataFilePath = path.join(__dirname, 'employees.json');
+const server = jsonServer.create();
+const router = jsonServer.router(path.join(__dirname, 'db.json'));  // Path to your db.json file
+const middlewares = jsonServer.defaults();
 
-// Middleware to parse JSON requests
-app.use(express.json());
+server.use(middlewares);
+server.use(jsonServer.bodyParser);
 
-// Route to save employee data to a JSON file
-app.post('/save-employees', (req, res) => {
-  const employees = req.body; // Get employee data from request
-  fs.writeFileSync(dataFilePath, JSON.stringify(employees, null, 2)); // Save to employees.json
-  res.status(200).send('Data saved successfully');
-});
+// Update employee (PUT request)
+server.put('/employees/:id', (req, res) => {
+  const employeeId = req.params.id;
+  const updatedEmployee = req.body;  // Get the updated employee data from the request body
+  
+  // Find the employee in the db.json and update it
+  const employees = router.db.get('employees').value();
+  const employeeIndex = employees.findIndex(emp => emp.id === employeeId);
+  
+  if (employeeIndex !== -1) {
+    // Replace the old employee data with the new one
+    employees[employeeIndex] = { ...employees[employeeIndex], ...updatedEmployee };
+    
+    // Write the updated data back to db.json
+    fs.writeFileSync(path.join(__dirname, 'db.json'), JSON.stringify(router.db.getState(), null, 2));
 
-// Route to get employee data from the JSON file
-app.get('/get-employees', (req, res) => {
-  try {
-    const rawData = fs.readFileSync(dataFilePath);
-    const employees = JSON.parse(rawData.toString());
-    res.status(200).json(employees);
-  } catch (error) {
-    res.status(500).send('Error reading data');
+    res.status(200).json(employees[employeeIndex]);  // Return the updated employee
+  } else {
+    res.status(404).send('Employee not found');
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
+// Add new employee (POST request)
+server.post('/employees', (req, res) => {
+  const newEmployee = req.body;  // Get the new employee data from the request body
+  
+  // Add the new employee to the db.json
+  const employees = router.db.get('employees').value();
+  employees.push(newEmployee);
+  
+  // Write the updated data back to db.json
+  fs.writeFileSync(path.join(__dirname, 'db.json'), JSON.stringify(router.db.getState(), null, 2));
+
+  res.status(201).json(newEmployee);  // Return the newly added employee
+});
+
+// Save updated database to db.json after each request (optional)
+router.render = (req, res) => {
+  res.jsonp(res.locals.data);
+  fs.writeFileSync(path.join(__dirname, 'db.json'), JSON.stringify(router.db.getState(), null, 2));
+};
+
+server.use(router);
+
+server.listen(3000, () => {
+  console.log('🚀 JSON Server is running at http://localhost:3000');
 });

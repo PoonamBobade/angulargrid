@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
 import { KENDO_LABEL } from '@progress/kendo-angular-label';
 import { FormsModule } from '@angular/forms';
-import { EmployeeService } from '../emloyee.service';
+import { EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-grid',
