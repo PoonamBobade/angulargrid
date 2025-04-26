@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Employee {
-  id: string;
-  record_id: string;
+  id: number;
+  record_id: number;
   full_name: string;
   first_name: string;
   last_name: string;
@@ -32,11 +32,11 @@ export class EmployeeService {
     return this.http.post<Employee>(this.apiUrl, employee);
   }
 
-  updateEmployee(id: string, employee: Employee): Observable<Employee> {
+  updateEmployee(id: number, employee: Employee): Observable<Employee> {
     return this.http.put<Employee>(`${this.apiUrl}/${id}`, employee);
   }
 
-  deleteEmployee(id: string): Observable<any> {
+  deleteEmployee(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

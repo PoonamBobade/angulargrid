@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
 import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
 import { KENDO_LABEL } from '@progress/kendo-angular-label';
 import { FormsModule } from '@angular/forms';
-import { EmployeeService } from '../employee.service';
+import { Employee, EmployeeService } from '../employee.service';
 
 @Component({
   selector: 'app-grid',
@@ -62,59 +62,69 @@ export class GridComponent implements OnInit {
   }
 
   editHandler({ sender, rowIndex, dataItem }: any): void {
-    this.editedItem = { ...dataItem };
-    sender.editRow(rowIndex);
+    sender.editRow(rowIndex); 
+    this.editedItem = { ...dataItem }; // copy object instead of direct reference
   }
+
+  // saveHandler({ sender, rowIndex, dataItem }: any): void {
+  //   sender.closeRow(rowIndex);
+
+  //   const index = this.gridData.findIndex(item => item.id === dataItem.id);
+  //   if (index !== -1 && this.editedItem) {
+  //     this.gridData[index] = this.editedItem;
+  //     this.employeeService.updateEmployee(dataItem.id, this.editedItem).subscribe(() => {
+  //       this.fetchEmployees();
+  //     });
+  //   }
+  //   this.editedItem = undefined;
+  // }
 
   saveHandler({ sender, rowIndex, dataItem }: any): void {
     sender.closeRow(rowIndex);
 
     const index = this.gridData.findIndex(item => item.id === dataItem.id);
-    if (index !== -1 && this.editedItem) {
-      this.gridData[index] = this.editedItem;
-      this.employeeService.updateEmployee(dataItem.id, this.editedItem).subscribe(() => {
+    if (index !== -1) {
+      const updatedEmployee: Employee = {
+        id: dataItem.id,
+        record_id: dataItem.record_id,
+        full_name: dataItem.full_name,
+        first_name: dataItem.first_name,
+        last_name: dataItem.last_name,
+        job_title: dataItem.job_title,
+        primary_mail: dataItem.primary_mail,
+        phone: dataItem.phone,
+        lmp: dataItem.lmp,
+        appointment_type: dataItem.appointment_type,
+        booking_agency: dataItem.booking_agency
+      };
+
+      this.gridData[index] = { ...updatedEmployee };
+      this.employeeService.updateEmployee(dataItem.id, updatedEmployee).subscribe(() => {
         this.fetchEmployees();
       });
     }
     this.editedItem = undefined;
   }
 
-  removeHandler(dataItem: any): void {
-    this.employeeService.deleteEmployee(dataItem.id).subscribe(() => {
-      this.gridData = this.gridData.filter(item => item.id !== dataItem.id);
-      this.gridView = [...this.gridData];
+  
+  removeHandler(dataItem: Employee): void {
+    this.employeeService.deleteEmployee(dataItem.id).subscribe({
+      next: () => {
+        console.log('Deleted Successfully');
+        this.gridData = this.gridData.filter(item => item.id !== dataItem.id);
+        this.gridView = [...this.gridData];
+      },
+      error: (err) => {
+        console.error('Error while deleting:', err);
+      }
     });
   }
-
   cancelHandler({ sender, rowIndex }: any): void {
+    sender.cancelCell();
     this.editedItem = undefined;
-    sender.cancelRow(rowIndex);  // Ensures that the row is no longer in edit mode.
   }
 
-
-  addHandler(): void {
-    const newItem = {
-      id: 0, 
-      first_name: '',
-      last_name: '',
-      primary_email_address: '',
-      primary_phone_type: '',
-      lmp_lead_id: '',
-      appointment_type: '',
-      booking_agency: ''
-    };
-  
-    this.gridData.unshift(newItem);
-    this.gridView = [...this.gridData];
-  
-    setTimeout(() => {
-      this.editedItem = newItem;
-      const rowIndex = this.gridData.indexOf(newItem);
-      this.grid.editRow(rowIndex);
-    });
-  }
-  
-  onFilter(value: string): void {
+ onFilter(value: string): void {
     const inputValue = value.toLowerCase();
 
     this.gridView = process(this.gridData, {
