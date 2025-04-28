@@ -178,6 +178,49 @@ export class GridComponent implements OnInit {
 }
 
 
+addNewRow(): void {
+  // Create a new row with default values
+  const newRow = {
+    id: this.generateUniqueId(), // Generate a unique ID for the new row
+    record_id: null,
+    full_name: '',
+    first_name: '',
+    last_name: '',
+    primary_mail: '',
+    phone: '',
+    appointment_type: '',
+    booking_agency: '',
+    job_title: '',
+    address: ''
+  };
+
+  // Add the new row to the top of the grid data
+  this.gridData.unshift(newRow);
+  this.gridView = [...this.gridData]; // Refresh the grid view
+
+  // Start editing the new row
+  this.editedRowIndex = 0; // Index of the new row
+  this.formGroup = new FormGroup({
+    full_name: new FormControl(newRow.full_name, Validators.required),
+    first_name: new FormControl(newRow.first_name, Validators.required),
+    last_name: new FormControl(newRow.last_name, Validators.required),
+    primary_mail: new FormControl(newRow.primary_mail, Validators.required),
+    phone: new FormControl(newRow.phone, Validators.required),
+    appointment_type: new FormControl(newRow.appointment_type),
+    booking_agency: new FormControl(newRow.booking_agency),
+    job_title: new FormControl(newRow.job_title),
+    address: new FormControl(newRow.address)
+  });
+
+  this.grid.editRow(this.editedRowIndex, this.formGroup);
+  console.log('New row added:', newRow);
+}
+
+// Generate a unique ID for the new row
+generateUniqueId(): string {
+  return (Math.max(...this.gridData.map(item => parseInt(item.id || '0')), 0) + 1).toString();
+}
+
 
 
 
@@ -219,20 +262,28 @@ export class GridComponent implements OnInit {
     if (this.formGroup?.valid) {
       const updatedItem = { ...dataItem, ...this.formGroup.value };
   
-      this.employeeService.updateEmployee(updatedItem.id, updatedItem).subscribe(() => {
-        const index = this.gridData.findIndex(item => item.id === updatedItem.id);
-        if (index !== -1) {
-          this.gridData[index] = updatedItem;
-          this.gridView = [...this.gridData];
-        }
+      // Save the updated data to the backend
+      this.employeeService.updateEmployee(updatedItem.id, updatedItem).subscribe({
+        next: () => {
+          const index = this.gridData.findIndex(item => item.id === updatedItem.id);
+          if (index !== -1) {
+            this.gridData[index] = updatedItem; // Update the local grid data
+            this.gridView = [...this.gridData]; // Refresh the grid view
+          }
   
-        sender.closeRow(rowIndex);
-        this.editedRowIndex = undefined;
-        this.formGroup = undefined;
+          sender.closeRow(rowIndex); // Close the edited row
+          this.editedRowIndex = undefined;
+          this.formGroup = undefined; // Reset the form group
+          console.log('Row saved successfully:', updatedItem);
+        },
+        error: (err) => {
+          console.error('Error saving data:', err);
+        }
       });
+    } else {
+      console.log('Form is invalid');
     }
   }
-
 
   cancelHandler(p0: { sender: KendoGridComponent; rowIndex: number; }): void {
     this.grid.closeRow(this.editedRowIndex!);

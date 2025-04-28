@@ -2,10 +2,10 @@
   "employees": [
     {
       "id": "15",
-      "record_id": 137,
+      "record_id": "137",
       "full_name": "Liam Harris",
       "first_name": "Aditi",
-      "last_name": "lahade",
+      "last_name": "lahade123",
       "primary_mail": "ava.clark@example.com",
       "phone": "888-777-6666",
       "appointment_type": "Freelance",
@@ -36,37 +36,17 @@
       "booking_agency": "Marketing Group"
     },
     {
-      "id": "18",
-      "record_id": 140,
-      "full_name": "Daniel Young",
-      "first_name": "Daniel",
-      "last_name": "Young",
-      "primary_mail": "daniel.young@example.com",
-      "phone": "333-222-1111",
-      "appointment_type": "Contract",
-      "booking_agency": "Tech Corp"
-    },
-    {
-      "id": "19",
-      "record_id": 141,
-      "full_name": "Sophia Martinez",
-      "first_name": "Sophia",
-      "last_name": "Martinez",
-      "primary_mail": "sophia.martinez@example.com",
-      "phone": "444-333-2222",
-      "appointment_type": "Full Time",
-      "booking_agency": "Creative Solutions"
-    },
-    {
       "id": "20",
       "record_id": 142,
-      "full_name": "James Brown",
+      "full_name": "Sophia Martinez",
       "first_name": "James",
       "last_name": "Brown",
       "primary_mail": "james.brown@example.com",
-      "phone": "555-444-3333",
+      "phone": "444-333-2222",
       "appointment_type": "Freelance",
-      "booking_agency": "Consulting Experts"
+      "booking_agency": "Consulting Experts",
+      "job_title": null,
+      "address": null
     },
     {
       "id": "21",

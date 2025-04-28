@@ -18,7 +18,10 @@
         <button class="create-btn">Create</button>
     </div>
 </div>
+
+
 <div class="grid-container">
+
     <kendo-grid #gridRef [selectable]="true" (cellClick)="cellClickHandler($event)" [kendoGridBinding]="gridView"
         kendoGridSelectBy="id" [(selectedKeys)]="mySelection" [selectable]="{ mode: 'multiple', drag: true }"
         [pageSize]="20" [pageable]="true" [sortable]="true" [groupable]="false" [reorderable]="true" [resizable]="true"
@@ -27,7 +30,7 @@
 
 
         <ng-template kendoGridToolbarTemplate>
-
+            <button class="create-btn" (click)="addNewRow()">Add New</button>
             <div class="small-dropdown mb-3">
                 <kendo-dropdownlist [data]="areaList" [defaultItem]="'All Leads'">
                 </kendo-dropdownlist>
@@ -37,7 +40,7 @@
                 <kendo-dropdownlist [data]="areaList" [defaultItem]="'Select Saved Preferences'">
                 </kendo-dropdownlist>
             </div>
-
+             
 
             <div class="search-container gap-2 mb-3 ">
                 <kendo-textbox #searchInput [style.width.px]="220" placeholder="Type Search Keyword.."
@@ -90,7 +93,7 @@
             [showSelectAll]="true"></kendo-grid-checkbox-column>
         <!-- <kendo-grid-column-group title="Employee" [columnMenu]="false"> -->
 
-            <kendo-grid-column title="Actions" [width]="110"
+            <kendo-grid-column title="Actions" [width]="150"
             [headerStyle]="{ 'background-color': '#00205b', 'color': 'white', 'text-align': 'center', 'font-weight': 'bold' }">
             <ng-template kendoGridCellTemplate let-dataItem>
                 <div class="action-dropdown">
@@ -135,7 +138,7 @@
         
 
 
-        <kendo-grid-column field="record_id" title="Record Id" [width]="220"
+        <kendo-grid-column field="record_id" title="Record Id" [width]="100"
             [headerStyle]="{ 'background-color': '#00205b', 'color': 'white', 'text-align': 'center', 'font-weight': 'bold' }">
             <ng-template kendoGridCellTemplate let-dataItem>
                 {{dataItem.record_id}}
@@ -146,7 +149,7 @@
 
         </kendo-grid-column>
 
-        <kendo-grid-column field="last_name" title="Last Name" [width]="100" [class]="{ 'text-center': true }"
+        <kendo-grid-column field="last_name" title="Last Name" [width]="150" [class]="{ 'text-center': true }"
             [headerStyle]="{ 'background-color': '#00205b', 'color': 'white', 'text-align': 'center', 'font-weight': 'bold' }"
             [resizable]="false">
             <ng-template kendoGridCellTemplate let-dataItem>
@@ -161,7 +164,7 @@
 
 
 
-        <kendo-grid-column field="first_name" title="First Name" [width]="100" [class]="{ 'text-center': true }"
+        <kendo-grid-column field="first_name" title="First Name" [width]="150" [class]="{ 'text-center': true }"
             [headerStyle]="{ 'background-color': '#00205b', 'color': 'white', 'text-align': 'center', 'font-weight': 'bold' }"
             [resizable]="false" filter="boolean">
             <ng-template kendoGridCellTemplate let-dataItem>
