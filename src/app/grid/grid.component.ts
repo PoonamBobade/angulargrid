@@ -110,8 +110,14 @@ export class GridComponent implements OnInit {
     this.employeeService.deleteEmployee(dataItem.id).subscribe({
       next: () => {
         console.log('Deleted Successfully');
+        
+        // Remove the deleted item from the grid data
         this.gridData = this.gridData.filter(item => item.id !== dataItem.id);
+        
+        // Refresh the grid view
         this.gridView = [...this.gridData];
+        
+        console.log('Grid updated after deletion');
       },
       error: (err) => {
         console.error('Error while deleting:', err);
