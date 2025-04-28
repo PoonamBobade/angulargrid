@@ -1,75 +1,8 @@
 {
   "employees": [
     {
-      "id": "1",
-      "record_id": 123,
-      "full_name": "Benjamin Wright",
-      "first_name": "Poonam",
-      "last_name": "Bobade",
-      "primary_mail": "benjamin.wright@example.com",
-      "phone": "444-333-2222",
-      "appointment_type": "Full Time",
-      "booking_agency": "WorkForce"
-    },
-    {
-      "id": "2",
-      "record_id": 124,
-      "full_name": "Alice Smith",
-      "first_name": "Alice",
-      "last_name": "Smith",
-      "primary_mail": "alice.smith@example.com",
-      "phone": "555-444-3333",
-      "appointment_type": "Part Time",
-      "booking_agency": "Creative Agency"
-    },
-    {
-      "id": "3",
-      "record_id": 125,
-      "full_name": "John Doe",
-      "first_name": "John",
-      "last_name": "Doe",
-      "primary_mail": "john.doe@example.com",
-      "phone": "666-555-4444",
-      "appointment_type": "Freelance",
-      "booking_agency": "Global Solutions"
-    },
-    {
-      "id": "4",
-      "record_id": 126,
-      "full_name": "Michael Johnson",
-      "first_name": "Michael",
-      "last_name": "Johnson",
-      "primary_mail": "michael.johnson@example.com",
-      "phone": "777-666-5555",
-      "appointment_type": "Contract",
-      "booking_agency": "Innovative Tech"
-    },
-    {
-      "id": "5",
-      "record_id": 127,
-      "full_name": "Linda Williams",
-      "first_name": "Linda",
-      "last_name": "Williams",
-      "primary_mail": "linda.williams@example.com",
-      "phone": "888-777-6666",
-      "appointment_type": "Part Time",
-      "booking_agency": "TechX"
-    },
-    {
-      "id": "6",
-      "record_id": 128,
-      "full_name": "David Lee",
-      "first_name": "David",
-      "last_name": "Lee",
-      "primary_mail": "david.lee@example.com",
-      "phone": "999-888-7777",
-      "appointment_type": "Full Time",
-      "booking_agency": "Apex Services"
-    },
-    {
       "id": "7",
       "record_id": 129,
-      "full_name": "Sophia Martinez",
       "first_name": "Sophia",
       "last_name": "Martinez",
       "primary_mail": "sophia.martinez@example.com",
@@ -78,31 +11,8 @@
       "booking_agency": "Marketing Co."
     },
     {
-      "id": "10",
-      "record_id": "132123",
-      "full_name": "Matthew Taylor",
-      "first_name": "Matthew",
-      "last_name": "Taylor",
-      "primary_mail": "matthew.taylor@example.com",
-      "phone": "444-333-2222",
-      "appointment_type": "Full Time",
-      "booking_agency": "Design Pro"
-    },
-    {
-      "id": "11",
-      "record_id": 133,
-      "full_name": "Olivia Wilson",
-      "first_name": "Olivia",
-      "last_name": "Wilson",
-      "primary_mail": "olivia.wilson@example.com",
-      "phone": "555-444-3333",
-      "appointment_type": "Contract",
-      "booking_agency": "Innovative Marketing"
-    },
-    {
       "id": "12",
       "record_id": 134,
-      "full_name": "Ethan Moore",
       "first_name": "Ethan",
       "last_name": "Moore",
       "primary_mail": "ethan.moore@example.com",
@@ -113,7 +23,6 @@
     {
       "id": "13",
       "record_id": 135,
-      "full_name": "Charlotte Taylor",
       "first_name": "Charlotte",
       "last_name": "Taylor",
       "primary_mail": "charlotte.taylor@example.com",
@@ -124,7 +33,6 @@
     {
       "id": "14",
       "record_id": 136,
-      "full_name": "Liam Harris",
       "first_name": "Liam",
       "last_name": "Harris",
       "primary_mail": "liam.harris@example.com",
@@ -135,7 +43,6 @@
     {
       "id": "15",
       "record_id": 137,
-      "full_name": "Ava Clark",
       "first_name": "Ava",
       "last_name": "Clark",
       "primary_mail": "ava.clark@example.com",
@@ -146,7 +53,6 @@
     {
       "id": "16",
       "record_id": 138,
-      "full_name": "William Lewis",
       "first_name": "William",
       "last_name": "Lewis",
       "primary_mail": "william.lewis@example.com",
@@ -157,7 +63,6 @@
     {
       "id": "17",
       "record_id": 139,
-      "full_name": "Zoe Walker",
       "first_name": "Zoe",
       "last_name": "Walker",
       "primary_mail": "zoe.walker@example.com",
@@ -168,7 +73,6 @@
     {
       "id": "18",
       "record_id": 140,
-      "full_name": "Daniel Young",
       "first_name": "Daniel",
       "last_name": "Young",
       "primary_mail": "daniel.young@example.com",
