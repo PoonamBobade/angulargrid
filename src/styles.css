@@ -1,1 +1,106 @@
 /* You can add global styles to this file, and also import other style files */
+    /* Dark Mode Styles */
+body.dark-mode {
+    background-color: #000000 !important; /* Pure black background */
+    color: #ffffff !important; /* White text */
+}
+
+/* Kendo Grid Dark Theme */
+body.dark-mode .kendo-grid {
+    background-color: #1a1a1a !important; /* Dark gray for grid background */
+    color: #ffffff !important; /* White text for grid */
+    border-color: #333333 !important; /* Border color for grid */
+}
+
+body.dark-mode .k-grid-header {
+    background-color: #333333 !important; /* Slightly lighter gray for header */
+    color: #ffffff !important; /* White text for header */
+    border-bottom: 1px solid #444444 !important; /* Border for header */
+}
+
+body.dark-mode .k-grid-content {
+    background-color: #1a1a1a !important; /* Match grid background */
+    color: #ffffff !important; /* White text for content */
+}
+
+/* Alternate Row Colors for Better Readability */
+body.dark-mode .k-grid-content tr:nth-child(odd) {
+    background-color: #1e1e1e !important; /* Dark gray for odd rows */
+}
+
+body.dark-mode .k-grid-content tr:nth-child(even) {
+    background-color: #2a2a2a !important; /* Slightly lighter gray for even rows */
+}
+
+/* Row Text Color */
+body.dark-mode .k-grid-content tr {
+    color: #ffffff !important; /* White text for all rows */
+}
+
+/* Hover Effect for Rows */
+body.dark-mode .k-grid-content tr:hover {
+    background-color: #3a3a3a !important; /* Highlighted gray on hover */
+    color: #ffffff !important; /* Ensure text remains white */
+}
+
+/* Cell Borders for Better Separation */
+body.dark-mode .k-grid-cell {
+    border-color: #444444 !important; /* Subtle border color for cells */
+}
+
+/* Toolbar in Dark Mode */
+body.dark-mode .k-grid-toolbar {
+    background-color: #333333 !important; /* Toolbar background */
+    color: #ffffff !important; /* Toolbar text */
+}
+
+/* Column Menu in Dark Mode */
+body.dark-mode .k-grid-column-menu {
+    background-color: #333333 !important; /* Column menu background */
+    color: #ffffff !important; /* Column menu text */
+}
+
+/* Buttons in Dark Mode */
+body.dark-mode .action-section button,
+body.dark-mode .k-button {
+    background-color: #8dc63f !important; /* Green button background */
+    color: #000000 !important; /* Black text for buttons */
+    border: none !important;
+    border-radius: 4px;
+    
+}
+
+body.dark-mode .action-section button:hover,
+body.dark-mode .k-button:hover {
+    background-color: #7db338 !important; /* Slightly darker green on hover */
+    color: #ffffff !important; /* White text on hover */
+}
+
+/* Dropdowns in Dark Mode */
+body.dark-mode .k-dropdownlist .k-dropdown-wrap {
+    background-color: #333333 !important; /* Dropdown background */
+    color: #ffffff !important; /* Dropdown text */
+    border: 1px solid #444444 !important; /* Dropdown border */
+}
+
+body.dark-mode .k-dropdownlist .k-input {
+    color: #ffffff !important; /* Input text color */
+}
+
+/* Search Box in Dark Mode */
+body.dark-mode .search-container input {
+    background-color: #333333 !important; /* Search box background */
+    color: #ffffff !important; /* Search box text */
+    border: 1px solid #444444 !important; /* Search box border */
+}
+
+body.dark-mode .search-container button {
+    background-color: #8dc63f !important; /* Green search button */
+    color: #000000 !important; /* Black text for search button */
+}
+
+body.dark-mode .search-container button:hover {
+    background-color: #7db338 !important; /* Darker green on hover */
+    color: #ffffff !important; /* White text on hover */
+}
+

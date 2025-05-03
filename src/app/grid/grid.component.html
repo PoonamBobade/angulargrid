@@ -10,7 +10,13 @@
             <input type="checkbox" />
             Board View
         </label>
-
+       
+        <button class="toggle-theme-btn" (click)="toggleTheme()">
+            <span class="icon">
+              <i [ngClass]="isDarkMode ? 'fas fa-sun' : 'fas fa-moon'"></i>
+            </span>
+            {{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}
+          </button>
 
         <button class="green-btn" (click)="exportExcel(gridRef)"> <i class="fas fa-file-excel"> </i>Export to
             excel</button>
@@ -19,6 +25,8 @@
     </div>
 </div>
 
+
+  
 
 <div class="grid-container">
 
@@ -30,7 +38,7 @@
 
 
         <ng-template kendoGridToolbarTemplate>
-            <button class="create-btn" (click)="addNewRow()">Add New</button>
+            <!-- <button class="create-btn" (click)="addNewRow()">+</button> -->
             <div class="small-dropdown mb-3">
                 <kendo-dropdownlist [data]="areaList" [defaultItem]="'All Leads'">
                 </kendo-dropdownlist>
@@ -104,38 +112,10 @@
                         (valueChange)="onActionSelected($event, dataItem)">
                     </kendo-dropdownlist>
                 </div>
+                
             </ng-template>
         </kendo-grid-column>
-            <!-- <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
-                <button kendoButton icon="edit"
-                    (click)="editHandler({ sender: gridRef, rowIndex: rowIndex, dataItem: dataItem })"
-                    *ngIf="editedItem?.id !== dataItem.id">
-                    Edit
-                </button>
-
-                <button kendoButton icon="save"
-                    (click)="saveHandler({ sender: gridRef, rowIndex: rowIndex, dataItem: dataItem })"
-                    *ngIf="editedItem?.id === dataItem.id">
-                    Save
-                </button>
-
-                <button kendoButton icon="cancel" (click)="cancelHandler({ sender: gridRef, rowIndex: rowIndex })"
-                    *ngIf="editedItem?.id === dataItem.id">
-                    Cancel
-                </button>
-
-
-                <button kendoButton icon="delete" (click)="removeHandler(dataItem)"
-                    *ngIf="editedItem?.id !== dataItem.id">
-                    Delete
-                </button>
-            </ng-template> -->
-
-
-
-
-
-        
+         
 
 
         <kendo-grid-column field="record_id" title="Record Id" [width]="100"

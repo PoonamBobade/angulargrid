@@ -1,28 +1,17 @@
 {
   "employees": [
     {
-      "id": "15",
-      "record_id": "137",
-      "full_name": "Liam Harris",
-      "first_name": "Aditi",
-      "last_name": "lahade123",
-      "primary_mail": "ava.clark@example.com",
-      "phone": "888-777-6666",
-      "appointment_type": "Freelance",
-      "booking_agency": "Consulting Group",
-      "job_title": null,
-      "address": null
-    },
-    {
       "id": "16",
-      "record_id": 138,
+      "record_id": "138",
       "full_name": "William Lewis",
       "first_name": "William",
       "last_name": "Lewis",
       "primary_mail": "william.lewis@example.com",
       "phone": "111-999-8888",
       "appointment_type": "Part Time",
-      "booking_agency": "Design Agency"
+      "booking_agency": "Design Agency",
+      "job_title": null,
+      "address": null
     },
     {
       "id": "17",
@@ -146,17 +135,6 @@
       "phone": "555-444-3333",
       "appointment_type": "Part Time",
       "booking_agency": "Global Ventures"
-    },
-    {
-      "id": "30",
-      "record_id": 152,
-      "full_name": "Henry Scott",
-      "first_name": "Henry",
-      "last_name": "Scott",
-      "primary_mail": "henry.scott@example.com",
-      "phone": "666-555-4444",
-      "appointment_type": "Contract",
-      "booking_agency": "Creative Solutions"
     }
   ]
 }
