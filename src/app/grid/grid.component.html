@@ -194,15 +194,15 @@
 
 
 
-        <kendo-grid-column field="budget" title="LMP Lead Id" [width]="100" filter="numeric"
+        <kendo-grid-column field="lmp" title="LMP Lead Id" [width]="100" filter="numeric"
             [headerStyle]="{ 'background-color': '#00205b', 'color': 'white', 'text-align': 'center', 'font-weight': 'bold' }">
             <ng-template kendoGridCellTemplate let-dataItem>
-                <span [ngClass]="{ 'red text-bold': dataItem.budget < 0 }">
-                    {{dataItem.budget | currency }}
+                <span [ngClass]="{ ' text-bold': dataItem.lmp }">
+                    {{dataItem.lmp }} 
                 </span>
             </ng-template>
             <ng-template kendoGridEditTemplate let-dataItem="dataItem">
-                <input kendoTextBox [(ngModel)]="dataItem.budget" />
+                <input kendoTextBox [(ngModel)]="dataItem.lmp" />
             </ng-template>
         </kendo-grid-column>
 
