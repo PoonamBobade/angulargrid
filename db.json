@@ -4,7 +4,7 @@
       "id": "16",
       "record_id": "138",
       "full_name": "William Lewis",
-      "first_name": "William",
+      "first_name": "William12",
       "last_name": "Lewis",
       "primary_mail": "william.lewis@example.com",
       "phone": "111-999-8888",
@@ -22,7 +22,9 @@
       "primary_mail": "zoe.walker@example.com",
       "phone": "222-111-9999",
       "appointment_type": "Full Time",
-      "booking_agency": "Marketing Group"
+      "booking_agency": "Marketing Group",
+      "job_title": null,
+      "address": null
     },
     {
       "id": "20",
@@ -38,26 +40,17 @@
       "address": null
     },
     {
-      "id": "21",
-      "record_id": 143,
-      "full_name": "Emily Davis",
-      "first_name": "Emily",
-      "last_name": "Davis",
-      "primary_mail": "emily.davis@example.com",
-      "phone": "666-555-4444",
-      "appointment_type": "Part Time",
-      "booking_agency": "Tech Innovators"
-    },
-    {
       "id": "22",
       "record_id": 144,
       "full_name": "Michael Wilson",
-      "first_name": "Michael",
+      "first_name": "Michael123",
       "last_name": "Wilson",
       "primary_mail": "michael.wilson@example.com",
       "phone": "777-666-5555",
       "appointment_type": "Contract",
-      "booking_agency": "Global Solutions"
+      "booking_agency": "Global Solutions",
+      "job_title": null,
+      "address": null
     },
     {
       "id": "23",
@@ -68,7 +61,9 @@
       "primary_mail": "olivia.johnson@example.com",
       "phone": "888-777-6666",
       "appointment_type": "Full Time",
-      "booking_agency": "Marketing Experts"
+      "booking_agency": "Marketing Experts",
+      "job_title": null,
+      "address": null
     },
     {
       "id": "24",
@@ -79,7 +74,9 @@
       "primary_mail": "benjamin.white@example.com",
       "phone": "999-888-7777",
       "appointment_type": "Freelance",
-      "booking_agency": "Creative Agency"
+      "booking_agency": "Creative Agency",
+      "job_title": null,
+      "address": null
     },
     {
       "id": "25",

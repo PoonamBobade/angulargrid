@@ -19,6 +19,9 @@ import { Employee, EmployeeService } from '../employee.service';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Renderer2, OnDestroy } from '@angular/core';
+import { ColumnBase } from '@progress/kendo-angular-grid';
+import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
+
 
 
 
@@ -129,25 +132,58 @@ export class GridComponent implements OnInit {
   //   this.editedItem = undefined;
   // }
 
- onFilter(value: string): void {
-    const inputValue = value.toLowerCase();
+//  onFilter(value: string): void {
+//     const inputValue = value.toLowerCase();
 
-    this.gridView = process(this.gridData, {
-      filter: {
-        logic: "or",
-        filters: [
-          { field: "full_name", operator: "contains", value: inputValue },
-          { field: "job_title", operator: "contains", value: inputValue },
-          { field: "budget", operator: "contains", value: inputValue },
-          { field: "phone", operator: "contains", value: inputValue },
-          { field: "address", operator: "contains", value: inputValue }
-        ]
-      }
-    }).data;
+//     this.gridView = process(this.gridData, {
+//       filter: {
+//         logic: "or",
+//         filters: [
+//           { field: "full_name", operator: "contains", value: inputValue },
+//           { field: "job_title", operator: "contains", value: inputValue },
+//           { field: "budget", operator: "contains", value: inputValue },
+//           { field: "phone", operator: "contains", value: inputValue },
+//           { field: "address", operator: "contains", value: inputValue }
+//         ]
+//       }
+//     }).data;
 
-    this.dataBinding.skip = 0;
-  }
+//     this.dataBinding.skip = 0;
+//   }
+onFilter(value: string): void {
+  const inputValue = value.toLowerCase();
 
+  this.gridView = process(this.gridData, {
+    filter: {
+      logic: "or",
+      filters: [
+        { field: "record_id", operator: "contains", value: inputValue },
+        { field: "last_name", operator: "contains", value: inputValue },
+        { field: "first_name", operator: "contains", value: inputValue },
+        { field: "primary_email_address", operator: "contains", value: inputValue },
+        { field: "primary_phone_type", operator: "contains", value: inputValue },
+        { field: "lmp_lead_id", operator: "contains", value: inputValue },
+        { field: "appointment_type", operator: "contains", value: inputValue },
+        { field: "booking_agency", operator: "contains", value: inputValue }
+      ]
+    }
+  }).data;
+
+  this.dataBinding.skip = 0;
+}
+
+@ViewChild('gridRef') gridRef!: GridComponent;
+
+clearFilters(): void {
+  const emptyFilter: CompositeFilterDescriptor = { logic: 'and', filters: [] }; 
+
+  
+  this.gridView = process(this.gridData, { filter: emptyFilter }).data; 
+
+  console.log('Filters cleared successfully!');
+
+  window.location.reload();
+}
   exportExcel(grid: any): void {
     grid.saveAsExcel();
   }
@@ -293,6 +329,7 @@ export class GridComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchEmployees();
+    
   
     // Add a document click listener
     this.documentClickListener = this.renderer.listen('document', 'click', (event: Event) => {
@@ -352,7 +389,64 @@ export class GridComponent implements OnInit {
     }
   }
 
+  saveGridPreferences(): void {
+    const columnState = this.grid.columns
+      .filter((col): col is ColumnBase & { field: string } => !!(col as any).field)
+      .map(col => ({
+        field: (col as any).field,
+        width: col.width,
+        hidden: col.hidden,
+        orderIndex: col.orderIndex
+      }));
+  
+    const state = {
+      columns: columnState,
+      filter: this.grid.filter,
+      sort: this.grid.sort
+    };
+  
+    localStorage.setItem('gridState', JSON.stringify(state));
+    console.log('✅ Grid preferences saved:', state);
+  }
 
+  loadGridPreferences(): void {
+    const saved = localStorage.getItem('gridState');
+  
+    if (saved) {
+      const state = JSON.parse(saved);
+  
+      // Restore columns
+      state.columns.forEach((savedCol: any) => {
+        const col = this.grid.columns.find(
+          c => (c as any).field === savedCol.field
+        );
+        if (col) {
+          col.width = savedCol.width;
+          col.hidden = savedCol.hidden;
+          col.orderIndex = savedCol.orderIndex;
+        }
+      });
+  
+      // Restore sort and filter
+      this.grid.sort = state.sort;
+      this.grid.filter = state.filter;
+  
+      console.log('✅ Grid preferences loaded:', state);
+    }
+  }
+
+  resetGridPreferences(): void {
+    localStorage.removeItem('gridState');
+    window.location.reload(); // Reload to reset grid state visually
+  }
+
+  savedPreferenceNames: string[] = [];
+selectedPreference: string = '';
 
   
+
+
+
+
+
 }
