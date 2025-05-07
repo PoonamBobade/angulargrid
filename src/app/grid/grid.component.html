@@ -36,7 +36,19 @@
     [selectable]="true" (cellClick)="cellClickHandler($event)" [kendoGridBinding]="gridView"
         kendoGridSelectBy="id" [(selectedKeys)]="mySelection" [selectable]="{ mode: 'multiple', drag: true }"
         [pageSize]="20" [pageable]="true" [sortable]="true" [groupable]="false" [reorderable]="true" [resizable]="true"
-        [height]="500" [columnMenu]="{ filter: true } ">
+        [height]="500" [columnMenu]="{ filter: true } "
+        
+        [data]="gridData" 
+        [pageSize]="gridState.take" 
+        [skip]="gridState.skip"
+        [sortable]="true" 
+        [filterable]="true" 
+        [filter]="gridState.filter"
+        [sort]="gridState.sort"
+        (sortChange)="applyGridState($event)"
+        (filterChange)="applyGridState($event)"
+        (pageChange)="applyGridState($event)">
+        >
 
 
 
@@ -47,10 +59,14 @@
                 </kendo-dropdownlist>
             </div>
 
-            <div class="medium-dropdown mb-3 ">
-                <kendo-dropdownlist [data]="areaList" [defaultItem]="'Select Saved Preferences'">
-                </kendo-dropdownlist>
-            </div>
+            <div class="medium-dropdown mb-3">
+                <label for="savedPreferences">Select Saved Preferences:</label>
+                <select [(ngModel)]="selectedPreference" (change)="applySavedPreference(selectedPreference)">
+                  <option *ngFor="let preference of areaList" [value]="preference">{{ preference }}</option>
+                </select>
+              </div>
+              
+              
              
 
             <div class="search-container gap-2 mb-3 ">
@@ -86,6 +102,18 @@
                 <button class="action-btn" (click)="clearFilters()">Clear Filters</button>
                 <button class="action-btn">Bulk Edit</button>
                 <!-- <button class="action-btn" >Save Preferences</button> -->
+               <!-- Popup to save preferences with a custom name -->
+
+<div *ngIf="showPopup" class="popup-overlay">
+    <div class="popup-content">
+      <h2>Save Preferences</h2>
+      <label for="preferencesName">Enter a name for your preferences:</label>
+      <input id="preferencesName" [(ngModel)]="preferencesName" type="text" placeholder="Enter name" />
+      <button (click)="savePreferencesWithName()">Save</button>
+      <button (click)="closePopup()">Cancel</button>
+    </div>
+  </div>
+  
                 <button class="action-btn"  (click)="saveGridPreferences()">Save Preferences</button>
               
 
