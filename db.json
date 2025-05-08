@@ -90,7 +90,9 @@
       "lmp": "88990",
       "phone": "333-222-1111",
       "appointment_type": "Full Time",
-      "booking_agency": "Consulting Group"
+      "booking_agency": "Consulting Group",
+      "job_title": null,
+      "address": null
     },
     {
       "id": "28",

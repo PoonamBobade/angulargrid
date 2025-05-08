@@ -48,7 +48,8 @@
 
               
               <div>
-                <label for="savedPreferencesDropdown">Select Saved Preference:</label>
+                <label for="savedPreferencesDropdown" class="saved-preferences-label">Select Saved Preference:</label>
+                
                 <select id="savedPreferencesDropdown" [(ngModel)]="selectedPreference">
                   <option *ngFor="let preference of savedPreferences" [value]="preference.name">
                     {{ preference.name }}
@@ -93,15 +94,26 @@
                 <!-- <button class="action-btn" >Save Preferences</button> -->
                <!-- Popup to save preferences with a custom name -->
 
-<div *ngIf="showPopup" class="popup-overlay">
-    <div class="popup-content">
-      <h2>Save Preferences</h2>
-      <label for="preferencesName">Enter a name for your preferences:</label>
-      <input id="preferencesName" [(ngModel)]="preferencesName" type="text" placeholder="Enter name" />
-      <button (click)="savePreferencesWithName()">Save</button>
-      <button (click)="closePopup()">Cancel</button>
-    </div>
-  </div>
+               <div *ngIf="showPopup" class="popup-overlay">
+                <div class="popup-content">
+                  <h2>Save Preferences</h2>
+              
+                  <label for="preferencesName">Enter a name for your preferences:</label>
+                  <input
+                    id="preferencesName"
+                    [(ngModel)]="preferencesName"
+                    kendoTextBox
+                    type="text"
+                    placeholder="Enter name"
+                  />
+              
+                  <div class="popup-buttons">
+                    <button kendoButton (click)="savePreferencesWithName()" themeColor="primary">Save</button>
+                    <button kendoButton (click)="closePopup()" themeColor="default">Cancel</button>
+                  </div>
+                </div>
+              </div>
+              
   
                 <button class="action-btn"  (click)="saveGridPreferences()">Save Preferences</button>
               
