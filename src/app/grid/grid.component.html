@@ -36,21 +36,8 @@
     [selectable]="true" (cellClick)="cellClickHandler($event)" [kendoGridBinding]="gridView"
         kendoGridSelectBy="id" [(selectedKeys)]="mySelection" [selectable]="{ mode: 'multiple', drag: true }"
         [pageSize]="20" [pageable]="true" [sortable]="true" [groupable]="false" [reorderable]="true" [resizable]="true"
-        [height]="500" [columnMenu]="{ filter: true } "
+        [height]="500" [columnMenu]="{ filter: true } ">
         
-        [data]="gridData" 
-        [pageSize]="gridState.take" 
-        [skip]="gridState.skip"
-        [sortable]="true" 
-        [filterable]="true" 
-        [filter]="gridState.filter"
-        [sort]="gridState.sort"
-        (sortChange)="applyGridState($event)"
-        (filterChange)="applyGridState($event)"
-        (pageChange)="applyGridState($event)">
-        >
-
-
 
         <ng-template kendoGridToolbarTemplate>
             <!-- <button class="create-btn" (click)="addNewRow()">+</button> -->
@@ -59,13 +46,15 @@
                 </kendo-dropdownlist>
             </div>
 
-            <div class="medium-dropdown mb-3">
-                <label for="savedPreferences">Select Saved Preferences:</label>
-                <select [(ngModel)]="selectedPreference" (change)="applySavedPreference(selectedPreference)">
-                  <option *ngFor="let preference of areaList" [value]="preference">{{ preference }}</option>
+              
+              <div>
+                <label for="savedPreferencesDropdown">Select Saved Preference:</label>
+                <select id="savedPreferencesDropdown" [(ngModel)]="selectedPreference">
+                  <option *ngFor="let preference of savedPreferences" [value]="preference.name">
+                    {{ preference.name }}
+                  </option>
                 </select>
               </div>
-              
               
              
 

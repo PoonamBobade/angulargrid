@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GridComponent as KendoGridComponent } from '@progress/kendo-angular-grid';
+import { process, State } from '@progress/kendo-data-query';
+import { ColumnBase } from '@progress/kendo-angular-grid';
 import {
   DataBindingDirective,
   GridModule,
@@ -9,7 +11,6 @@ import {
 } from '@progress/kendo-angular-grid';
 import { KENDO_CHARTS } from '@progress/kendo-angular-charts';
 import { KENDO_INPUTS } from '@progress/kendo-angular-inputs';
-import { process } from '@progress/kendo-data-query';
 import { SVGIcon, fileExcelIcon, filePdfIcon } from '@progress/kendo-svg-icons';
 import { CommonModule } from '@angular/common';
 import { KENDO_DROPDOWNS } from '@progress/kendo-angular-dropdowns';
@@ -19,7 +20,6 @@ import { Employee, EmployeeService } from '../employee.service';
 
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Renderer2, OnDestroy } from '@angular/core';
-import { ColumnBase } from '@progress/kendo-angular-grid';
 import { CompositeFilterDescriptor } from '@progress/kendo-data-query';
 import { GridDataResult} from '@progress/kendo-angular-grid'; 
 
@@ -41,7 +41,7 @@ import { GridDataResult} from '@progress/kendo-angular-grid';
     GridModule
   ],
   templateUrl: './grid.component.html',
-  styleUrl: './grid.component.css'
+  styleUrls: ['./grid.component.css']
 })
 export class GridComponent implements OnInit {
   @ViewChild(DataBindingDirective) dataBinding!: DataBindingDirective;
@@ -53,15 +53,16 @@ export class GridComponent implements OnInit {
   public editedItem: any;
   public selectedToggle = 'non-intl';
 
-  public gridState = {
+  public gridState: State = {
     skip: 0,  // Starting index (for pagination)
     take: 10,  // Number of items per page
     sort: [],  // Sorting configuration
     filter: { logic: 'and', filters: [] } as CompositeFilterDescriptor,
+    group: []
   };
  
   
-  public savedPreferences: { name: string, state: any }[] = [];
+  public savedPreferences: { name: string, state: State, columnsConfig: any[] }[] = [];
   public selectedPreference: string = '';
   
 
@@ -351,7 +352,11 @@ clearFilters(): void {
     const storedPrefs = localStorage.getItem('gridPreferences');
     if (storedPrefs) {
       const prefs = JSON.parse(storedPrefs);
-      this.savedPreferences = Object.keys(prefs).map(key => ({ name: key, state: prefs[key].state }));
+      this.savedPreferences = Object.keys(prefs).map(key => ({
+        name: key,
+        state: prefs[key].state,
+        columnsConfig: prefs[key].columnsConfig || []
+      }));
     }
     
   this.areaList = storedPrefs ? Object.keys(JSON.parse(storedPrefs)) : [];
@@ -453,25 +458,38 @@ clearFilters(): void {
       alert('Please enter a name for the preferences');
       return;
     }
-
+  
     // Save the preferences with the name entered
-    const preferencesKey = `gridState_${this.preferencesName}`;
+    const columnsConfig = this.grid.columns
+      .filter((col): col is ColumnBase & { field: string } => !!(col as any).field)
+      .map(col => ({
+        field: (col as any).field,
+        width: col.width,
+        hidden: col.hidden,
+        orderIndex: col.orderIndex
+      }));
+  
     const state = {
-      columns: this.grid.columns,
       filter: this.grid.filter,
-      sort: this.grid.sort
-      
+      sort: this.grid.sort,
+      columns: columnsConfig
     };
-
-    localStorage.setItem('gridPreferences', JSON.stringify(this.gridState));
-
-
-    console.log(' Grid preferences saved with name:', this.preferencesName);
-
+  
+    this.savedPreferences.push({
+      name: this.preferencesName,
+      state: { ...state, filter: state.filter || { logic: 'and', filters: [] }, sort: state.sort || [] },
+      columnsConfig // Add the missing property here
+    });
+  
+    localStorage.setItem('savedPreferences', JSON.stringify(this.savedPreferences));
+  
+    console.log('Grid preferences saved with name:', this.preferencesName);
+  
     // Close the popup after saving
     this.showPopup = false;
-    this.preferencesName = '';  // Reset the preferences name
+    this.preferencesName = ''; // Reset the preferences name
   }
+
   closePopup(): void {
     this.showPopup = false;  // Hide the popup
   }
@@ -498,7 +516,7 @@ clearFilters(): void {
       this.grid.sort = state.sort;
       this.grid.filter = state.filter;
   
-      console.log('✅ Grid preferences loaded:', state);
+      console.log('Grid preferences loaded:', state);
     }
   }
 
@@ -525,23 +543,37 @@ public onPreferenceSelected(event: Event): void {
 }
 
 // 9. Apply the grid state when filter or sort changes
-public applyGridState(state: any): void {
-  this.gridState = state;
-  // 10. Save the updated state to localStorage
-  localStorage.setItem('savedPreferences', JSON.stringify(this.savedPreferences));
-  console.log('Grid preferences saved:', this.gridState);
+applyGridState(state: any): void {
+    this.gridState = state;
+
+    // Save the updated state to localStorage
+    const updatedState = {
+      columns: this.grid.columns
+        .filter((col): col is ColumnBase & { field: string } => !!(col as any).field)
+        .map(col => ({
+          field: (col as any).field,
+          width: col.width,
+          hidden: col.hidden,
+          orderIndex: col.orderIndex
+        })),
+      filter: state.filter,
+      sort: state.sort
+    };
+
+    // Save the updated state to the savedPreferences array
+    const preferenceName = `Preference ${this.savedPreferences.length + 1}`;
+    
+    localStorage.setItem('savedPreferences', JSON.stringify(this.savedPreferences));
+
+    console.log('Grid state saved and added to preferences:', updatedState);
 }
-
-
 
 applySavedPreference(preferenceName: string): void {
   const preference = this.savedPreferences.find(p => p.name === preferenceName);
   if (preference) {
     // Apply columns
-    preference.state.columns.forEach((savedCol: any) => {
-      const col = this.grid.columns.find(
-        c => (c as any).field === savedCol.field
-      );
+    preference.columnsConfig.forEach((savedCol: any) => {
+      const col = this.grid.columns.find(c => (c as any).field === savedCol.field);
       if (col) {
         col.width = savedCol.width;
         col.hidden = savedCol.hidden;
@@ -553,16 +585,45 @@ applySavedPreference(preferenceName: string): void {
     this.grid.sort = preference.state.sort;
     this.grid.filter = preference.state.filter;
 
-    console.log('Grid preferences loaded:', preference.state);
+    console.log('Grid preferences loaded:', preference);
+  }
+}
+  public dataStateChange(state: State): void {
+    this.gridState = state;
+    this.saveGridState();
   }
 
-}
+  public saveGridState(): void {
+    const columnsConfig = this.grid.columns.toArray().map((col: ColumnBase) => ({
+      field: (col as any).field,
+      width: col.width,
+      hidden: col.hidden,
+      orderIndex: col.orderIndex
+    }));
 
+    const preferenceName = `Preference ${this.savedPreferences.length + 1}`;
+    const newPreference = { name: preferenceName, state: this.gridState, columnsConfig };
 
+    this.savedPreferences.push(newPreference);
+    localStorage.setItem('gridPreferences', JSON.stringify(this.savedPreferences));
+  }
 
+  public loadGridState(preferenceName: string): void {
+    const preference = this.savedPreferences.find(p => p.name === preferenceName);
+    if (preference) {
+      this.gridState = preference.state;
 
+      preference.columnsConfig.forEach((savedCol: any) => {
+        const col = this.grid.columns.find(c => (c as any).field === savedCol.field);
+        if (col) {
+          col.width = savedCol.width;
+          col.hidden = savedCol.hidden;
+          col.orderIndex = savedCol.orderIndex;
+        }
+      });
 
-
-
-
+      this.grid.filter = this.gridState.filter;
+      this.grid.sort = this.gridState.sort;
+    }
+  }
 }

@@ -1,22 +1,8 @@
 {
   "employees": [
     {
-      "id": "16",
-      "record_id": "138",
-      "full_name": "William Lewis",
-      "first_name": "poonam",
-      "last_name": "bobade123",
-      "primary_mail": "william.lewis@example.com",
-      "lmp": "123",
-      "phone": "111-999-8888",
-      "appointment_type": "Part Time",
-      "booking_agency": "Design Agency",
-      "job_title": null,
-      "address": null
-    },
-    {
       "id": "17",
-      "record_id": 139,
+      "record_id": "13922",
       "full_name": "Zoe Walker",
       "first_name": "Zoe",
       "last_name": "Walker",
@@ -33,7 +19,7 @@
       "record_id": 142,
       "full_name": "Sophia Martinez",
       "first_name": "James",
-      "last_name": "Brown",
+      "last_name": "Brown123",
       "primary_mail": "james.brown@example.com",
       "lmp": "11223",
       "phone": "444-333-2222",
